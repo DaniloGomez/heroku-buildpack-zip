@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
+
+# fail fast
+set -e
+
+# parse args
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+cat $BUILD_DIR/zipfile.txt | while read url ; do
+    # skip blank lines
+    [ -z $url ] && continue
+
+    TEMP_FILE=$(tempfile)
+
+    # download
+    wget -O $TEMP_FILE $url
+
+    # unzip
+    unzip $TEMP_FILE -d $CACHE_DIR
+done
+
+if [ "${PIPESTATUS[*]}" != "0" ]; then
+  echo " !     Failed to install Buildpack Zip"
+  exit 1
+fi

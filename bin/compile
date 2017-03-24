@@ -21,7 +21,3 @@ cat $BUILD_DIR/zipfile.txt | while read url ; do
     unzip $TEMP_FILE -d $CACHE_DIR
 done
 
-if [ "${PIPESTATUS[*]}" != "0" ]; then
-  echo " !     Failed to install Buildpack Zip"
-  exit 1
-fi

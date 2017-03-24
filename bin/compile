@@ -8,7 +8,7 @@ set -e
 BUILD_DIR=$1
 CACHE_DIR=$2
 
-cat $BUILD_DIR/zipfile.txt | while read url ; do
+while read url ; do
     # skip blank lines
     [ -z $url ] && continue
 
@@ -18,6 +18,8 @@ cat $BUILD_DIR/zipfile.txt | while read url ; do
     wget -O $TEMP_FILE $url
 
     # unzip
-    unzip $TEMP_FILE -d $CACHE_DIR
-done
+    unzip $TEMP_FILE -d $BUILD_DIR
+
+    rm $TEMP_FILE
+done < $BUILD_DIR/zipfile.txt
 

@@ -8,6 +8,10 @@ set -e
 BUILD_DIR=$1
 CACHE_DIR=$2
 
+echo build: $BUILD_DIR
+echo cache: $CACHE_DIR
+echo cwdir: `pwd`
+
 while read url ; do
     # skip blank lines
     [ -z $url ] && continue
